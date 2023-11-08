@@ -2,13 +2,13 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: complete
-  name: complete-deployment
+    app: giropops-senhas
+  name: giropops-senhas
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
-      app: complete
+      app: giropops-senhas
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -18,17 +18,20 @@ spec:
   template:
     metadata:
       labels:
-        app: complete
+        app: giropops-senhas
     spec:
       containers:
-      - image: nginx
+      - image: linuxtips/giropops-senhas:1.0
         name: nginx
+        ports:
+        - containerPort: 5000
+          imagePullPolicy: Always
         resources:
           limits:
-            cpu: 0.9
+            cpu: "0.9"
             memory: 256Mi
           requests:
-            cpu: 0.5
+            cpu: "0.5"
             memory: 64Mi
       #  volumeMounts:
       #  - name: html
